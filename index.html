@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Noto – Connecting…</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; display: flex; flex-direction: column;
+           align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f5f5f7; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    p  { color: #6e6e73; margin-bottom: 24px; }
+    a  { background: #0071e3; color: white; padding: 12px 24px; border-radius: 8px;
+         text-decoration: none; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <h1>✓ Authorized</h1>
+  <p>Click below to open Noto and finish connecting.</p>
+  <script>
+    const p = new URLSearchParams(window.location.search);
+    const code = p.get('code'), error = p.get('error');
+    if (error) {
+      document.querySelector('h1').textContent = '✕ Failed';
+      document.querySelector('p').textContent = error;
+    } else if (code) {
+      const link = document.createElement('a');
+      link.href = 'noto://callback?' + p.toString();
+      link.textContent = 'Open Noto';
+      document.body.appendChild(link);
+      window.location = link.href;
+    }
+  </script>
+</body>
+</html>
